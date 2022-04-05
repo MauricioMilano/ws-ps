@@ -48,10 +48,13 @@ export class regrasScore {
       const atendeuHoje = agora.diff(lead.ultimo_lead_recebido, 'days')
 
       if (atendeuHoje > 1) {
+        const date = `${agora.year()}-${agora.month()}-${agora.day()}T12:00:00.000Z`
+        console.log(date);
         lead.ultimo_lead_recebido = new Date(
-          `${agora.year()}-${agora.month()}-${agora.day()}T12:00:00.000Z`
+          `${agora.year()}-${agora.month().toString().padStart(2,"0")}-${agora.day().toString().padStart(2,"0")}T12:00:00.000Z`
         )
       }
+      console.log(lead)
       const horasSemAtender = agora.diff(lead.ultimo_lead_recebido, "hours")
       lead.score = horasSemAtender*lead.multiplicador
       if(lead.score > escolhido.score) escolhido = lead
@@ -63,6 +66,7 @@ export class regrasScore {
   }
   public static validaHorario() {
     const agora = moment(new Date())
+
     const isDiaDeSemana = agora.day()
       const hora = agora.hour()
       const dias_sem_trabalho = process.env.DIAS_SEM_TRABALHO?.split(",").map(x=>Number(x)) || [0, 6]
