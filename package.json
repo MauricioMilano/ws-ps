@@ -7,7 +7,7 @@
     "run:dev": "tsc src/*.ts --outdir dist && node dist/index.js",
     "test": "jest .",
     "build": "tsc src/*.ts --outdir dist",
-    "start": "node dist/index.js"
+    "start": "tsc src/*.ts --outdir dist && node dist/index.js"
   },
   "author": "Mauricio Milano",
   "license": "ISC",
